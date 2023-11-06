@@ -40,3 +40,4 @@ if tulem == 0:
 tulemus= open("loetud.txt", "w", encoding="utf-8")
 tulemus.write(f"Loetud raamatute arv: {loetud_raamatud}")
 tulemus.close()
+print("test")
