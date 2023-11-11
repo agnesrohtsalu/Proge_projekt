@@ -1,6 +1,7 @@
 import dlib
 import face_recognition
 from PIL import Image
+import cv2
 image = face_recognition.load_image_file("naised.jpg")
 face_locations = face_recognition.face_locations(image)
 print(face_locations)
@@ -12,5 +13,5 @@ for face_location in face_locations:
 
     # You can access the actual face itself like this:
     face_image = image[top:bottom, left:right]
-    pil_image = Image.fromarray(face_image)
-    pil_image.show()
+    cv2.imshow("nagu", face_image)
+cv2.waitKey(0)
