@@ -56,6 +56,12 @@ def kustuta(järjend):
     pilt_nupp.pack()
     nimi.pack(pady=5)
 
+#Nupud teises aknas??
+    #jätkamis nupp
+jätka= customtkinter.CTkButton(app, text='Vali uus pilt',
+                                        font= font3, command=üleslaadimine,
+                                        height=30, width=120)
+jätka.pack()
 
     #Inimese nimi
 x="Agnes"
