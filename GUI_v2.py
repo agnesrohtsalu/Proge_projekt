@@ -118,5 +118,6 @@ jätka= customtkinter.CTkButton(app, text='Vali uus pilt',
 
 
 
+
 #run gui
 app.mainloop()
