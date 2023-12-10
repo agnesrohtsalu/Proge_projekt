@@ -18,6 +18,7 @@ app.rowconfigure(1, weight=1)
 app.rowconfigure(2, weight=10)
 app.rowconfigure(3, weight=5)
 app.columnconfigure(0, weight=1)
+app.columnconfigure(1, weight=1)
 
 #tekst esimeses aknas
 font= customtkinter.CTkFont("Calibri", 70)
@@ -25,7 +26,7 @@ font2= customtkinter.CTkFont("Calibri", 40)
 font3= customtkinter.CTkFont("Calibri", 20)
 
 pealkiri_1= customtkinter.CTkLabel(app, text="Tuvasta inimene", height=100,font=font)
-pealkiri_1.grid(row=0, column=0)
+pealkiri_1.grid(row=0, column=0,columnspan= 2)
 
 #Inimese nimi ja info
 x="Agnes"
@@ -45,10 +46,11 @@ def upload_command():
     pildi_tekitamine(path)
 
 #info välja kirjutamine
-info_tekst= customtkinter.CTkLabel(app, text="", font=font3, justify= "left")
+
+#info_tekst= customtkinter.CTkLabel(app, text="", font=font3, justify= "left")
 def pildi_funkt():
-    #global info_tekst
-    #info_tekst= customtkinter.CTkLabel(app, text=f"{info}", font=font3)
+    global info_tekst
+    info_tekst= customtkinter.CTkLabel(app, text=f"{info}", font=font3, justify= "left")
     info_tekst.configure(text=f"{info}")
     info_tekst.grid(row= 2, column=0, sticky= "nw", padx= 50)
 
@@ -71,8 +73,14 @@ def pildi_nupu_tekitamine(pilt):
     global pilt_nupp
     pilt_nupp = customtkinter.CTkButton(app, image=pilt, text="", fg_color="black",
                                           command=pildi_funkt)
-    pilt_nupp.grid(row=0, column= 0, sticky= "n")
+    pilt_nupp.grid(row=0, column= 0, sticky= "n", columnspan= 2)
     
+
+def live_nupp():
+    live_nupp=customtkinter.CTkButton(app, text='Live',
+                                        font= font3, 
+                                        fg_color="red")
+    live_nupp.grid(row=0, column= 1, sticky= "ne")
 
 #Kõik mida edasi nupp käivitab
 def edasi_nupp_funktsioonid():
@@ -80,10 +88,10 @@ def edasi_nupp_funktsioonid():
     kustuta([edasi_nupp, upload_button, pealkiri_1])
     my_image= pildi_tekitamine(path)
     pildi_nupu_tekitamine(my_image)
-    #pilt_nupp.pack()
+    live_nupp()
     nimi= customtkinter.CTkLabel(app, text=f"{x}", font=font2)
-    nimi.grid(row=1, column=0, sticky= "n")
-    jätka.grid(row=3, column=0)
+    nimi.grid(row=1, column=0, sticky= "n", columnspan= 2)
+    jätka.grid(row=3, column=0, columnspan= 2)
 
 #"Vali uus pilt" nupp
  
@@ -95,9 +103,10 @@ def jätka_nupp_funktsioonid():
     kustuta([pilt_nupp, nimi, info_tekst])
     my_image= pildi_tekitamine(path)
     pildi_nupu_tekitamine(my_image)
+    live_nupp()
     nimi= customtkinter.CTkLabel(app, text=f"{x}", font=font2)
-    nimi.grid(row=1, column=0, sticky= "n")
-    jätka.grid(row=3, column=0)
+    nimi.grid(row=1, column=0, sticky= "n", columnspan= 2)
+    jätka.grid(row=3, column=0, columnspan= 2)
 
 #NIME ja INFO muutujate muutmine
 def andmete_muutmine():
@@ -113,11 +122,11 @@ path = r"C:\Users\krull\Desktop\Media\Photoshop\valter.png"
 upload_button = customtkinter.CTkButton(app, text='Lae üles inimese pilt',
                                         font= font2, command= upload_command,
                                         height=100, width=600)
-upload_button.grid(row=1, column=0, rowspan= 2)
+upload_button.grid(row=1, column=0, rowspan= 2, columnspan= 2)
 
 edasi_nupp= customtkinter.CTkButton(app, fg_color= "#008000", text="Edasi", height=30, width=100, 
                                     command=edasi_nupp_funktsioonid)
-edasi_nupp.grid(row=3, column=0)
+edasi_nupp.grid(row=3, column=0, columnspan= 2)
 
 
 #Nupud teises aknas
