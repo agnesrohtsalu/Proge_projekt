@@ -30,6 +30,9 @@ pealkiri_1.pack(padx=10, pady= 10)
 path = ""
 x = ""
 
+#Tekst, mis popib kõikidele piltidele pärast 
+info = "on väsinud"
+
 #NUPUD ESIMESES AKNAS
 #piltide üles laadimine
 
@@ -43,12 +46,6 @@ def upload_command():
     üleslaadimine()
     pildi_tekitamine(path)
 
-
-def pildi_funkt():
-    tekst= customtkinter.CTkLabel(app, text=f"{info}", font=font3)
-    tekst.pack(pady=3)
-#pildi_kast= customtkinter.CTkImage()
-
 #järgmisele lehele minek
 def kustuta(järjend):
     for i in järjend:
@@ -61,14 +58,52 @@ def kustuta(järjend):
 sfr = SimpleFacerec()
 sfr.load_encoding_images("source-code-face-recognition/source code/images")
 
+täisnimi = ""
+
 def määrame_isikut(kujutis):
+    global täisnimi
+    global inimeste_sõnastik
     print(kujutis)
     img = cv2.imread(kujutis)
     face_locations, face_names = sfr.detect_known_faces(img)
-    nimi = face_names[0] #idexiga 0 on ära tuntud pildi nimi
-    return nimi 
+    täisnimi = face_names[0] #idexiga 0 on ära tuntud pildi nimi
+    #siia funktsiooni sisse kirja sõnastik, mis võtab pildid (nende pealkirjas vütmetena) ja tagastab 2 lauseleise descriptioni nende kohta
+# Define a dictionary to store information about people
+    inimeste_sõnastik = {
+    "Jaan Janno": "Praktikumi juhendaja",
+    "Agnes Rohtsalu": "Materjaliteadus + kõrvaleriala",
+    "Jaan Krull": "Materjaliteadus",
+    "Tauno Palts": "Vastutav õppejõud aines"
+}
+    return täisnimi 
 
-#siia funktsiooni sisse kirja sõnastik, mis võtab pildid (nende pealkirjas vütmetena) ja tagastab 2 lauseleise descriptioni nende kohta
+def pildi_funkt():
+    global täisnimi
+    täisnimi = str(täisnimi)
+    tekst= customtkinter.CTkLabel(app, text=f"{inimeste_sõnastik[täisnimi]}", font=font3)
+    tekst.pack(pady=3)
+#pildi_kast= customtkinter.CTkImage()
+
+# Function to get a descriptive sentence for a person
+#def get_description(name):
+    #return people_info.get(name, "No information available.")
+
+# Example usage:
+#folder_path = "source-code-face-recognition/source code/images"
+
+# Example loop to iterate through images in the folder
+#for image_file in source-code-face-recognition/source code/imagesr:
+    #image_path = f"{folder_path}/{image_file}"
+    
+    # Get the name of the recognized person
+    #person_name = määrame_isikut(image_path)
+    
+    # Get the description from the dictionary
+    #description = get_description(person_name)
+
+    # Print the information
+    #print(f"{person_name}: {description}")
+
 
 def pildi_tekitamine(tee):
     my_image = customtkinter.CTkImage(light_image=Image.open(tee),
@@ -100,7 +135,7 @@ def edasi_nupp_funktsioonid():
     my_image= pildi_tekitamine(path)
     pildi_nupu_tekitamine(my_image)
     #pilt_nupp.pack()
-    nimi= customtkinter.CTkLabel(app, text=f"{x}", font=font2)
+    nimi= customtkinter.CTkLabel(app, text=f"{x}", font=font2) #valge kirjutis jaani poolt
     nimi.pack(pady=5)
     jätka.pack(pady=40)
     
@@ -126,10 +161,6 @@ upload_button.pack(pady=20)
 edasi_nupp= customtkinter.CTkButton(app, text="Edasi", height=30, width=100, 
                                     command=edasi_nupp_funktsioonid)
 edasi_nupp.pack()
-
-#Inimese nimi ja info
-
-info= "on väsinud"
 
 #Nupud teises aknas
     #jätkamis nupp
