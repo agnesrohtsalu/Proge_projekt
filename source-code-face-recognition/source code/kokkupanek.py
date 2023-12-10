@@ -169,7 +169,5 @@ jätka= customtkinter.CTkButton(app, text='Vali uus pilt',
                                         height=40, width=125)
 
 
-
-
 #run gui
 app.mainloop()
